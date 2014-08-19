@@ -13,6 +13,14 @@
 		6D38A11B19A3BCE40003FA10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D38A11919A3BCE40003FA10 /* Main.storyboard */; };
 		6D38A11D19A3BCE40003FA10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D38A11C19A3BCE40003FA10 /* Images.xcassets */; };
 		6D38A12919A3BCE50003FA10 /* CoreDataMusicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D38A12819A3BCE50003FA10 /* CoreDataMusicTests.swift */; };
+		6D38A13419A3C2700003FA10 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D38A13319A3C2700003FA10 /* Song.swift */; };
+		6D38A13619A3C2700003FA10 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D38A13519A3C2700003FA10 /* Artist.swift */; };
+		6D38A13819A3C2700003FA10 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D38A13719A3C2700003FA10 /* Label.swift */; };
+		6D38A13A19A3C5000003FA10 /* AddLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D38A13919A3C5000003FA10 /* AddLabelViewController.swift */; };
+		6D38A13C19A3CBE60003FA10 /* ArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D38A13B19A3CBE60003FA10 /* ArtistsViewController.swift */; };
+		6D4A4ABE19A3EBEF00DB2053 /* AddArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4A4ABD19A3EBEF00DB2053 /* AddArtistViewController.swift */; };
+		6D4A4AC319A408FC00DB2053 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4A4AC219A408FC00DB2053 /* SongsViewController.swift */; };
+		6D4A4AC519A40AEF00DB2053 /* AddSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4A4AC419A40AEF00DB2053 /* AddSongViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +44,15 @@
 		6D38A12219A3BCE40003FA10 /* CoreDataMusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataMusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D38A12719A3BCE40003FA10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D38A12819A3BCE50003FA10 /* CoreDataMusicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMusicTests.swift; sourceTree = "<group>"; };
+		6D38A13219A3C26F0003FA10 /* CoreDataMusic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreDataMusic-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D38A13319A3C2700003FA10 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		6D38A13519A3C2700003FA10 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
+		6D38A13719A3C2700003FA10 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		6D38A13919A3C5000003FA10 /* AddLabelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLabelViewController.swift; sourceTree = "<group>"; };
+		6D38A13B19A3CBE60003FA10 /* ArtistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsViewController.swift; sourceTree = "<group>"; };
+		6D4A4ABD19A3EBEF00DB2053 /* AddArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistViewController.swift; sourceTree = "<group>"; };
+		6D4A4AC219A408FC00DB2053 /* SongsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongsViewController.swift; sourceTree = "<group>"; };
+		6D4A4AC419A40AEF00DB2053 /* AddSongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSongViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +96,19 @@
 			children = (
 				6D38A11219A3BCE40003FA10 /* AppDelegate.swift */,
 				6D38A11719A3BCE40003FA10 /* ViewController.swift */,
+				6D38A13919A3C5000003FA10 /* AddLabelViewController.swift */,
+				6D38A13B19A3CBE60003FA10 /* ArtistsViewController.swift */,
+				6D4A4ABD19A3EBEF00DB2053 /* AddArtistViewController.swift */,
+				6D4A4AC219A408FC00DB2053 /* SongsViewController.swift */,
+				6D4A4AC419A40AEF00DB2053 /* AddSongViewController.swift */,
 				6D38A11919A3BCE40003FA10 /* Main.storyboard */,
 				6D38A11C19A3BCE40003FA10 /* Images.xcassets */,
 				6D38A11419A3BCE40003FA10 /* CoreDataMusic.xcdatamodeld */,
+				6D38A13719A3C2700003FA10 /* Label.swift */,
+				6D38A13519A3C2700003FA10 /* Artist.swift */,
+				6D38A13319A3C2700003FA10 /* Song.swift */,
 				6D38A11019A3BCE30003FA10 /* Supporting Files */,
+				6D38A13219A3C26F0003FA10 /* CoreDataMusic-Bridging-Header.h */,
 			);
 			path = CoreDataMusic;
 			sourceTree = "<group>";
@@ -211,9 +237,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D38A13A19A3C5000003FA10 /* AddLabelViewController.swift in Sources */,
+				6D4A4AC519A40AEF00DB2053 /* AddSongViewController.swift in Sources */,
+				6D38A13419A3C2700003FA10 /* Song.swift in Sources */,
+				6D4A4ABE19A3EBEF00DB2053 /* AddArtistViewController.swift in Sources */,
 				6D38A11819A3BCE40003FA10 /* ViewController.swift in Sources */,
+				6D38A13819A3C2700003FA10 /* Label.swift in Sources */,
 				6D38A11619A3BCE40003FA10 /* CoreDataMusic.xcdatamodeld in Sources */,
+				6D38A13619A3C2700003FA10 /* Artist.swift in Sources */,
+				6D4A4AC319A408FC00DB2053 /* SongsViewController.swift in Sources */,
 				6D38A11319A3BCE40003FA10 /* AppDelegate.swift in Sources */,
+				6D38A13C19A3CBE60003FA10 /* ArtistsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,9 +365,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CoreDataMusic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CoreDataMusic/CoreDataMusic-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -342,9 +379,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CoreDataMusic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CoreDataMusic/CoreDataMusic-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -401,6 +440,7 @@
 				6D38A12E19A3BCE50003FA10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6D38A12F19A3BCE50003FA10 /* Build configuration list for PBXNativeTarget "CoreDataMusicTests" */ = {
 			isa = XCConfigurationList;
@@ -409,6 +449,7 @@
 				6D38A13119A3BCE50003FA10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
