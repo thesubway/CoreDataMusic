@@ -9,12 +9,12 @@
 import UIKit
 import CoreData
 
-
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddLabelDelegate {
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
     var myContext : NSManagedObjectContext!
-    var labels = [Label]()
+    var fetchedResultsController : NSFetchedResultsController!
+    
+    //var labels = [Label]()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -22,66 +22,119 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         self.myContext = appDelegate.managedObjectContext
         
-        var request = NSFetchRequest(entityName: "Label")
-        var error : NSError?
-        self.labels = self.myContext.executeFetchRequest(request, error: &error) as [Label]
+        var request = NSFetchRequest(entityName: "Label") // sets fetched results controller
+        let sort = NSSortDescriptor(key: "name", ascending: true)
         
+        // add sort to the request
+        request.sortDescriptors = [sort]
+        request.fetchBatchSize = 20
+        
+        // initialize the fetched results controller
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.myContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.fetchedResultsController.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        // perform fetch on appearance
+        var error : NSError?
+        fetchedResultsController.performFetch(&error)
         if error != nil {
-            println(error?.localizedDescription)
-        }
-        else {
-            self.navigationController.popToRootViewControllerAnimated(true)
+            println("Error fetching labels: \(error?.localizedDescription)")
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func addLabelPressed(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("addLabel", sender: self)
+    }
+    
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+        return self.fetchedResultsController!.sections[section].numberOfObjects
+    }
+    
+    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        let cell = tableView.dequeueReusableCellWithIdentifier("LabelCell", forIndexPath: indexPath) as UITableViewCell
+        self.configureCell(cell, forIndexPath: indexPath)
+        return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func configureCell(cell: UITableViewCell, forIndexPath indexPath: NSIndexPath) {
+        var label = self.fetchedResultsController.fetchedObjects[indexPath.row] as Label
+        cell.textLabel.text = label.name
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         if segue.identifier == "addLabel" {
             let addLabelVC = segue.destinationViewController as AddLabelViewController
-            addLabelVC.delegate = self
+//            addLabelVC.delegate = self
         }
         else if segue.identifier == "ShowArtists" {
             let artistsVC = segue.destinationViewController as ArtistsViewController
-            artistsVC.selectedLabel = self.labels[self.tableView.indexPathForSelectedRow().row]
+            var label = self.fetchedResultsController.fetchedObjects[self.tableView.indexPathForSelectedRow().row] as Label
+            artistsVC.selectedLabel = label
         }
-        
-        
     }
+    
+    
+    //NSFetchedResultsControllerDelegate Methods
+    
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController!) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController!) {
+        self.tableView.endUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController!, didChangeObject anObject: AnyObject!, atIndexPath indexPath: NSIndexPath!, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath!) {
+        switch type {
+        case .Insert:
+            self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+        case .Delete:
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        case .Update:
+            self.configureCell(self.tableView.cellForRowAtIndexPath(indexPath), forIndexPath: indexPath)
+        case .Move:
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+        }
+    }
+    
+    //MARK: TableView Delete Rows
+    
+    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+        // don't need anything here, just have to implement it for the respondsToSelector: test
+    }
+    
 
-    @IBAction func addLabelPressed(sender: AnyObject) {
-        self.performSegueWithIdentifier("addLabel", sender: self)
-    }
     
-    
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return self.labels.count
-    }
-    
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("LabelCell", forIndexPath: indexPath) as UITableViewCell
-        
-        var label = self.labels[indexPath.row]
-        cell.textLabel.text = label.name
-        return cell
-    }
-    
-    func labelAdded() {
-        
-        var request = NSFetchRequest(entityName: "Label")
-        var error : NSError?
-        self.labels = self.myContext.executeFetchRequest(request, error: &error) as [Label]
-        
-        if error != nil {
-            println(error?.localizedDescription)
-        } else {
-            self.tableView.reloadData()
+    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+        // create a delete action
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete") {
+            (action, indexPath) in
+            // implement the delete changes
+            if let labelForRow = self.fetchedResultsController.fetchedObjects[indexPath.row] as? Label {
+                self.myContext.deleteObject(labelForRow)
+                self.myContext.save(nil)
+            }
         }
         
+        let moreAction = UITableViewRowAction(style: .Default, title: "More") { (action, indexPath) -> Void in
+            println("More Action")
+        }
         
+        // set the background color for the action button
+        deleteAction.backgroundColor = UIColor.redColor()
+        moreAction.backgroundColor = UIColor.lightGrayColor()
+        
+        // return an array of actions
+        return [deleteAction, moreAction]
     }
     
 }
